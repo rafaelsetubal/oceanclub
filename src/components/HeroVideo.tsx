@@ -1,6 +1,6 @@
 'use client';
 
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useEffect, useRef } from 'react';
 import Image from 'next/image';
 
 interface HeroVideoProps {
@@ -16,6 +16,24 @@ export const HeroVideo = forwardRef<HTMLDivElement, HeroVideoProps>(
     },
     ref
   ) => {
+    const videoElementRef = useRef<HTMLVideoElement | null>(null);
+
+    useEffect(() => {
+      const vid = videoElementRef.current;
+      if (!vid) return;
+
+      // Force muted properties on DOM node to pass mobile autoplay security checks
+      vid.defaultMuted = true;
+      vid.muted = true;
+
+      const playPromise = vid.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Autoplay policy prevented playback, poster remains visible
+        });
+      }
+    }, []);
+
     return (
       <div
         ref={ref}
@@ -35,6 +53,7 @@ export const HeroVideo = forwardRef<HTMLDivElement, HeroVideoProps>(
 
         {/* Real High-Definition Hero Video */}
         <video
+          ref={videoElementRef}
           autoPlay
           muted
           loop
