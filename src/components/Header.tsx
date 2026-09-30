@@ -12,7 +12,7 @@ export function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setIsScrolled(window.scrollY > 40);
     };
 
     handleScroll();
@@ -33,7 +33,7 @@ export function Header() {
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out',
         isScrolled || mobileMenuOpen
           ? 'bg-[#03182D]/95 backdrop-blur-md border-b border-white/10 py-3.5 sm:py-4 shadow-xl shadow-black/30'
-          : 'bg-gradient-to-b from-black/50 via-black/20 to-transparent border-b border-transparent py-5 sm:py-7'
+          : 'bg-transparent border-b-0 py-5 sm:py-7'
       )}
     >
       <div className="max-w-[1280px] mx-auto px-6 sm:px-10 lg:px-12 flex items-center justify-between">
