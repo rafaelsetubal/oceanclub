@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { ArrowUp, ArrowDown, Sun, Moon, Waves, Clock, Share2, Check, RefreshCw } from 'lucide-react';
+import { ArrowUp, ArrowDown, Sun, Moon, Waves, Clock, Share2, Check, Anchor, Sparkles } from 'lucide-react';
 import { TideDataResponse, TideEvent } from '@/lib/tides';
 import { cn } from '@/lib/utils';
 
@@ -62,7 +62,6 @@ export function TideChart({
   // Real-time ticking: refresh current Bahia time every 60 seconds
   useEffect(() => {
     const timer = setInterval(() => {
-      // Re-fetch only if viewing today's tide
       if (!dateStr) {
         fetch('/api/tides')
           .then((r) => r.json())
@@ -77,20 +76,27 @@ export function TideChart({
 
   // SVG Geometry Dimensions
   const SVG_WIDTH = 1000;
-  const SVG_HEIGHT = 300;
-  const PADDING = { top: 40, bottom: 50, left: 40, right: 40 };
+  const SVG_HEIGHT = 320;
+  const PADDING = { top: 48, bottom: 52, left: 48, right: 54 };
   const CHART_WIDTH = SVG_WIDTH - PADDING.left - PADDING.right;
   const CHART_HEIGHT = SVG_HEIGHT - PADDING.top - PADDING.bottom;
 
-  // Scale calculations
-  const { minL, maxL, pathD, areaD, getCoords } = useMemo(() => {
+  // Scale calculations & SVG path generation
+  const { minL, maxL, pathD, areaD, getCoords, depthLevels } = useMemo(() => {
     if (!data || !data.curvePoints || data.curvePoints.length === 0) {
-      return { minL: 0, maxL: 2.2, pathD: '', areaD: '', getCoords: () => ({ x: 0, y: 0 }) };
+      return {
+        minL: 0,
+        maxL: 2.2,
+        pathD: '',
+        areaD: '',
+        getCoords: () => ({ x: 0, y: 0 }),
+        depthLevels: [],
+      };
     }
 
-    const minLevelVal = Math.max(0, Math.floor((data.minLevel - 0.15) * 10) / 10);
-    const maxLevelVal = Math.ceil((data.maxLevel + 0.15) * 10) / 10;
-    const levelRange = maxLevelVal - minLevelVal || 1;
+    const minLevelVal = 0.0;
+    const maxLevelVal = 2.4;
+    const levelRange = maxLevelVal - minLevelVal;
 
     const getX = (hour: number) => PADDING.left + (hour / 24) * CHART_WIDTH;
     const getY = (level: number) =>
@@ -118,12 +124,19 @@ export function TideChart({
       y: getY(level),
     });
 
+    // Reference depth lines: 0.5m, 1.0m, 1.5m, 2.0m
+    const depths = [0.5, 1.0, 1.5, 2.0].map((val) => ({
+      val,
+      y: getY(val),
+    }));
+
     return {
       minL: minLevelVal,
       maxL: maxLevelVal,
       pathD: d,
       areaD: aD,
       getCoords: getCoordsFn,
+      depthLevels: depths,
     };
   }, [data, CHART_WIDTH, CHART_HEIGHT, PADDING.left, PADDING.top]);
 
@@ -149,7 +162,6 @@ export function TideChart({
     }
 
     const hour = ((svgX - PADDING.left) / CHART_WIDTH) * 24;
-    // Find closest curve point
     let closest = data.curvePoints[0];
     let minDiff = 999;
     for (const pt of data.curvePoints) {
@@ -205,9 +217,9 @@ export function TideChart({
 
   if (loading && !data) {
     return (
-      <div className={cn('w-full max-w-4xl mx-auto p-8 rounded-2xl bg-[#03182D]/80 border border-white/10 animate-pulse text-center', className)}>
-        <Waves className="w-8 h-8 text-[#16C4E8] animate-bounce mx-auto mb-3" />
-        <p className="text-white/60 font-mono text-sm tracking-wider uppercase">Carregando Tábua de Marés de Ilhéus…</p>
+      <div className={cn('w-full max-w-4xl mx-auto p-12 rounded-3xl bg-[#031424]/90 border border-white/10 shadow-2xl animate-pulse text-center', className)}>
+        <Waves className="w-10 h-10 text-[#16C4E8] animate-bounce mx-auto mb-4" />
+        <p className="text-white/70 font-mono text-sm tracking-widest uppercase">Consultando Marinha do Brasil (DHN)…</p>
       </div>
     );
   }
@@ -217,59 +229,91 @@ export function TideChart({
   return (
     <div
       className={cn(
-        'w-full max-w-4xl mx-auto rounded-2xl bg-gradient-to-b from-[#041c35] to-[#02101e] border border-white/10 shadow-2xl overflow-hidden backdrop-blur-md',
+        'w-full max-w-4xl mx-auto rounded-3xl bg-gradient-to-b from-[#061e35] via-[#031322] to-[#010912] border border-white/10 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.8)] overflow-hidden backdrop-blur-xl relative',
         className
       )}
     >
+      {/* Decorative luxury gradient highlights */}
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#16C4E8]/40 to-transparent" />
+      <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-48 bg-[#16C4E8]/10 rounded-full blur-[80px] pointer-events-none" />
+
       {/* Editorial Header */}
-      <div className="px-6 pt-6 sm:px-8 sm:pt-8 pb-4 border-b border-white/5 flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div className="px-6 pt-7 sm:px-10 sm:pt-9 pb-5 border-b border-white/5 flex flex-col md:flex-row md:items-end justify-between gap-5 relative z-10">
         <div>
-          <div className="flex items-center gap-2.5 mb-1.5">
-            <span className="inline-block w-2 h-2 rounded-full bg-[#16C4E8] animate-pulse" />
-            <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#16C4E8] font-semibold">
-              Porto de Ilhéus Malhado · Bahia
+          <div className="flex items-center gap-2 mb-2">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#16C4E8]/10 border border-[#16C4E8]/20 text-[#16C4E8] text-[10px] font-mono uppercase tracking-[0.2em] font-semibold">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#16C4E8] animate-pulse" />
+              Oficial DHN · Marinha do Brasil
             </span>
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-white tracking-tight uppercase">
+
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold text-white tracking-tight uppercase leading-none">
             Tábua de Marés
           </h2>
-          <p className="text-xs sm:text-sm text-white/60 font-sans mt-0.5 capitalize">
-            {data.weekday} · {data.formattedDate}
-          </p>
+
+          <div className="flex items-center gap-2 mt-2 text-xs sm:text-sm text-white/60 font-sans">
+            <span className="text-[#16C4E8] font-medium font-mono uppercase tracking-wider">Ilhéus · Bahia</span>
+            <span>·</span>
+            <span className="capitalize">{data.weekday}, {data.formattedDate}</span>
+          </div>
         </div>
 
-        {/* Live Water Level Pill & Share */}
+        {/* Live Water Level Pill & Share Button */}
         <div className="flex items-center gap-3">
-          <div className="bg-white/5 border border-white/10 rounded-full px-4 py-2 flex items-center gap-2.5">
-            <span className="text-xs text-white/60 uppercase font-mono tracking-wider">Agora:</span>
-            <span className="text-base font-bold font-mono text-white">{data.currentLevel.toFixed(2)}m</span>
-            <span
+          <div className="bg-[#02101e]/80 border border-white/10 rounded-full px-4 py-2 flex items-center gap-3 shadow-inner">
+            <div className="flex flex-col text-left">
+              <span className="text-[9px] text-white/50 uppercase font-mono tracking-widest leading-none">
+                Nível Agora
+              </span>
+              <span className="text-lg font-bold font-mono text-white leading-tight mt-0.5">
+                {data.currentLevel.toFixed(2).replace('.', ',')}m
+              </span>
+            </div>
+
+            <div
               className={cn(
-                'text-[10px] font-mono uppercase px-2 py-0.5 rounded-full font-bold',
+                'text-[10px] font-mono uppercase px-2.5 py-1 rounded-full font-bold flex items-center gap-1',
                 data.trend === 'rising'
-                  ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                  : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+                  ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30'
+                  : 'bg-amber-500/15 text-amber-400 border border-amber-500/30'
               )}
             >
-              {data.trend === 'rising' ? '▲ Enchendo' : '▼ Vazante'}
-            </span>
+              {data.trend === 'rising' ? (
+                <>
+                  <ArrowUp className="w-3 h-3" /> Enchendo
+                </>
+              ) : (
+                <>
+                  <ArrowDown className="w-3 h-3" /> Vazante
+                </>
+              )}
+            </div>
           </div>
 
           {showShare && (
             <button
               onClick={handleShare}
-              className="h-10 px-3.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white/80 hover:text-white transition-all duration-200 flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider"
+              className="h-11 px-4 rounded-full bg-white/5 hover:bg-white/10 active:scale-95 border border-white/10 text-white/80 hover:text-white transition-all duration-200 flex items-center gap-2 text-xs font-mono uppercase tracking-wider cursor-pointer"
               title="Compartilhar Tábua de Marés"
             >
-              {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Share2 className="w-3.5 h-3.5" />}
-              <span className="hidden sm:inline">{copied ? 'Copiado!' : 'Compartilhar'}</span>
+              {copied ? (
+                <>
+                  <Check className="w-4 h-4 text-emerald-400" />
+                  <span className="text-emerald-400 font-semibold">Copiado</span>
+                </>
+              ) : (
+                <>
+                  <Share2 className="w-4 h-4 text-[#16C4E8]" />
+                  <span className="hidden sm:inline">Compartilhar</span>
+                </>
+              )}
             </button>
           )}
         </div>
       </div>
 
       {/* Visual Chart Wave Area */}
-      <div className="relative px-2 sm:px-6 pt-4 pb-2 select-none">
+      <div className="relative px-3 sm:px-8 pt-6 pb-2 select-none">
         <svg
           ref={svgRef}
           viewBox={`0 0 ${SVG_WIDTH} ${SVG_HEIGHT}`}
@@ -279,51 +323,61 @@ export function TideChart({
         >
           <defs>
             {/* Wave gradient fill */}
-            <linearGradient id="tideGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#16C4E8" stopOpacity="0.35" />
-              <stop offset="60%" stopColor="#16C4E8" stopOpacity="0.10" />
-              <stop offset="100%" stopColor="#03182D" stopOpacity="0.0" />
+            <linearGradient id="tideAreaGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#16C4E8" stopOpacity="0.32" />
+              <stop offset="45%" stopColor="#16C4E8" stopOpacity="0.12" />
+              <stop offset="90%" stopColor="#03182D" stopOpacity="0.02" />
+              <stop offset="100%" stopColor="#010912" stopOpacity="0.0" />
             </linearGradient>
 
-            {/* Glowing line filter */}
-            <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur stdDeviation="3" result="blur" />
+            {/* Glowing filter */}
+            <filter id="waveGlow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="4" result="blur" />
               <feComposite in="SourceGraphic" in2="blur" operator="over" />
             </filter>
           </defs>
 
-          {/* Horizontal Level Guides */}
-          <line
-            x1={PADDING.left}
-            y1={PADDING.top}
-            x2={SVG_WIDTH - PADDING.right}
-            y2={PADDING.top}
-            stroke="rgba(255,255,255,0.06)"
-            strokeDasharray="3 3"
-          />
-          <line
-            x1={PADDING.left}
-            y1={PADDING.top + CHART_HEIGHT / 2}
-            x2={SVG_WIDTH - PADDING.right}
-            y2={PADDING.top + CHART_HEIGHT / 2}
-            stroke="rgba(255,255,255,0.06)"
-            strokeDasharray="3 3"
-          />
+          {/* Depth reference guide lines with labels on right */}
+          {depthLevels.map(({ val, y }) => (
+            <g key={val}>
+              <line
+                x1={PADDING.left}
+                y1={y}
+                x2={SVG_WIDTH - PADDING.right}
+                y2={y}
+                stroke="rgba(255,255,255,0.06)"
+                strokeDasharray="4 6"
+                strokeWidth="1"
+              />
+              <text
+                x={SVG_WIDTH - PADDING.right + 8}
+                y={y + 3.5}
+                fill="rgba(255,255,255,0.25)"
+                fontSize="10"
+                fontFamily="monospace"
+                fontWeight="500"
+              >
+                {val.toFixed(1)}m
+              </text>
+            </g>
+          ))}
 
           {/* Area under the curve */}
-          {areaD && <path d={areaD} fill="url(#tideGradient)" />}
+          {areaD && <path d={areaD} fill="url(#tideAreaGradient)" />}
 
-          {/* Wave line stroke with glow */}
+          {/* High-tech Wave stroke */}
           {pathD && (
             <>
+              {/* Soft bloom glow behind */}
               <path
                 d={pathD}
                 fill="none"
                 stroke="#16C4E8"
-                strokeWidth="5"
-                opacity="0.25"
-                filter="url(#glow)"
+                strokeWidth="7"
+                opacity="0.28"
+                filter="url(#waveGlow)"
               />
+              {/* Crisp main line */}
               <path
                 d={pathD}
                 fill="none"
@@ -341,7 +395,7 @@ export function TideChart({
             y1={PADDING.top + CHART_HEIGHT}
             x2={SVG_WIDTH - PADDING.right}
             y2={PADDING.top + CHART_HEIGHT}
-            stroke="rgba(255,255,255,0.18)"
+            stroke="rgba(255,255,255,0.22)"
             strokeWidth="1.2"
           />
 
@@ -355,16 +409,16 @@ export function TideChart({
                   x1={x}
                   y1={baseY}
                   x2={x}
-                  y2={baseY + 6}
+                  y2={baseY + 7}
                   stroke="rgba(255,255,255,0.4)"
                   strokeWidth="1.5"
                 />
                 <text
                   x={x}
-                  y={baseY + 22}
-                  fill="rgba(255,255,255,0.5)"
+                  y={baseY + 24}
+                  fill="rgba(255,255,255,0.55)"
                   fontSize="12"
-                  fontWeight="500"
+                  fontWeight="600"
                   fontFamily="monospace"
                   textAnchor="middle"
                 >
@@ -380,41 +434,52 @@ export function TideChart({
               {/* Vertical red indicator line */}
               <line
                 x1={nowCoords.x}
-                y1={PADDING.top - 12}
+                y1={PADDING.top - 18}
                 x2={nowCoords.x}
                 y2={PADDING.top + CHART_HEIGHT}
                 stroke="#F23343"
-                strokeWidth="1.8"
-                strokeDasharray="4 3"
+                strokeWidth="2"
+                strokeDasharray="5 3"
               />
 
-              {/* Top Label AGORA */}
-              <text
-                x={nowCoords.x}
-                y={PADDING.top - 20}
-                fill="#F23343"
-                fontSize="11"
-                fontWeight="700"
-                fontFamily="monospace"
-                letterSpacing="0.1em"
-                textAnchor="middle"
-              >
-                AGORA
-              </text>
+              {/* Top Red Badge "AGORA" */}
+              <g transform={`translate(${nowCoords.x}, ${PADDING.top - 24})`}>
+                <rect
+                  x="-26"
+                  y="-14"
+                  width="52"
+                  height="18"
+                  rx="4"
+                  fill="#F23343"
+                  className="shadow-lg shadow-red-500/40"
+                />
+                <text
+                  x="0"
+                  y="-1.5"
+                  fill="#FFFFFF"
+                  fontSize="10"
+                  fontWeight="800"
+                  fontFamily="monospace"
+                  letterSpacing="0.08em"
+                  textAnchor="middle"
+                >
+                  AGORA
+                </text>
+              </g>
 
-              {/* Pulsing indicator on the curve */}
+              {/* Pulsing radar point on the curve */}
               <circle
                 cx={nowCoords.x}
                 cy={nowCoords.y}
-                r="8"
+                r="11"
                 fill="#F23343"
-                opacity="0.35"
+                opacity="0.3"
                 className="animate-ping"
               />
               <circle
                 cx={nowCoords.x}
                 cy={nowCoords.y}
-                r="4.5"
+                r="5.5"
                 fill="#F23343"
                 stroke="#FFFFFF"
                 strokeWidth="2"
@@ -422,7 +487,7 @@ export function TideChart({
             </g>
           )}
 
-          {/* Interactive Hover Point & Tooltip */}
+          {/* Interactive Hover Scrubber & Tooltip */}
           {hoveredPoint && (
             <g>
               <line
@@ -430,41 +495,41 @@ export function TideChart({
                 y1={PADDING.top}
                 x2={hoveredPoint.x}
                 y2={PADDING.top + CHART_HEIGHT}
-                stroke="rgba(255,255,255,0.4)"
-                strokeWidth="1"
-                strokeDasharray="2 2"
+                stroke="rgba(255,255,255,0.5)"
+                strokeWidth="1.2"
+                strokeDasharray="3 3"
               />
               <circle
                 cx={hoveredPoint.x}
                 cy={hoveredPoint.y}
-                r="5"
+                r="6"
                 fill="#16C4E8"
                 stroke="#FFFFFF"
-                strokeWidth="2"
+                strokeWidth="2.5"
               />
-              {/* Floating Tooltip Pill */}
+              {/* Tooltip Pill */}
               <g
                 transform={`translate(${Math.max(
-                  PADDING.left + 50,
-                  Math.min(SVG_WIDTH - PADDING.right - 50, hoveredPoint.x)
-                )}, ${Math.max(PADDING.top + 20, hoveredPoint.y - 25)})`}
+                  PADDING.left + 55,
+                  Math.min(SVG_WIDTH - PADDING.right - 55, hoveredPoint.x)
+                )}, ${Math.max(PADDING.top + 20, hoveredPoint.y - 30)})`}
               >
                 <rect
-                  x="-48"
-                  y="-18"
-                  width="96"
-                  height="26"
-                  rx="6"
+                  x="-54"
+                  y="-20"
+                  width="108"
+                  height="28"
+                  rx="7"
                   fill="#03182D"
                   stroke="#16C4E8"
-                  strokeWidth="1.2"
+                  strokeWidth="1.5"
                 />
                 <text
                   x="0"
                   y="-1"
                   fill="#FFFFFF"
                   fontSize="11"
-                  fontWeight="600"
+                  fontWeight="700"
                   fontFamily="monospace"
                   textAnchor="middle"
                 >
@@ -477,83 +542,96 @@ export function TideChart({
       </div>
 
       {/* 4 Tide Events Grid */}
-      <div className="p-4 sm:p-6 bg-black/20 border-t border-white/5">
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+      <div className="p-5 sm:p-8 bg-black/30 border-t border-white/5 relative z-10">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 sm:gap-5">
           {data.events.map((ev, idx) => (
             <div
               key={`${ev.time}-${idx}`}
               className={cn(
-                'rounded-xl p-4 sm:p-5 flex flex-col items-center justify-center text-center transition-all duration-300 relative border',
+                'rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center text-center transition-all duration-300 relative border group',
                 ev.isNext
-                  ? 'bg-[#062444]/90 border-[#16C4E8]/60 shadow-lg shadow-[#16C4E8]/10 ring-1 ring-[#16C4E8]/30 scale-[1.02]'
-                  : 'bg-[#03182D]/70 border-white/10 hover:border-white/20',
-                ev.isPast && !ev.isNext && 'opacity-65'
+                  ? 'bg-gradient-to-b from-[#083058] to-[#041a31] border-[#16C4E8] shadow-[0_10px_30px_-5px_rgba(22,196,232,0.3)] ring-1 ring-[#16C4E8]/50 scale-[1.03]'
+                  : 'bg-[#031526]/80 border-white/10 hover:border-white/20 hover:bg-[#051c33]',
+                ev.isPast && !ev.isNext && 'opacity-60'
               )}
             >
               {/* "Próxima" Tag */}
               {ev.isNext && (
-                <span className="absolute -top-2.5 px-2.5 py-0.5 rounded-full bg-[#16C4E8] text-[#03182D] text-[9px] font-mono font-extrabold uppercase tracking-widest">
-                  Próxima
-                </span>
+                <div className="absolute -top-3 px-3 py-0.5 rounded-full bg-[#16C4E8] text-[#03182D] text-[9px] font-mono font-black uppercase tracking-widest flex items-center gap-1 shadow-md shadow-[#16C4E8]/30">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#03182D] animate-ping" />
+                  Próxima Maré
+                </div>
               )}
 
               {/* Icon & Eyebrow */}
               <div className="flex items-center gap-1.5 mb-2">
-                {ev.type === 'high' ? (
-                  <ArrowUp className="w-3.5 h-3.5 text-[#16C4E8]" />
-                ) : (
-                  <ArrowDown className="w-3.5 h-3.5 text-[#16C4E8]" />
-                )}
-                <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.14em] font-semibold text-white/70">
+                <div
+                  className={cn(
+                    'w-6 h-6 rounded-full flex items-center justify-center',
+                    ev.type === 'high' ? 'bg-[#16C4E8]/15 text-[#16C4E8]' : 'bg-sky-500/15 text-sky-300'
+                  )}
+                >
+                  {ev.type === 'high' ? (
+                    <ArrowUp className="w-3.5 h-3.5" />
+                  ) : (
+                    <ArrowDown className="w-3.5 h-3.5" />
+                  )}
+                </div>
+                <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.16em] font-bold text-white/80">
                   {ev.name}
                 </span>
               </div>
 
               {/* Time display: 05h36 */}
-              <div className="text-2xl sm:text-3xl font-display font-bold text-white tracking-tight leading-none mb-1.5">
+              <div className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-white tracking-tight leading-none mb-1.5">
                 {ev.time.replace(':', 'h')}
               </div>
 
               {/* Tide Height in Meters: 1,94m */}
-              <div className="text-sm sm:text-base font-mono font-medium text-[#16C4E8]">
+              <div className="text-sm sm:text-base font-mono font-bold text-[#16C4E8] tracking-tight">
                 {ev.level.toFixed(2).replace('.', ',')}m
               </div>
+
+              {/* Sub-label */}
+              <span className="text-[10px] font-sans text-white/40 mt-1 uppercase tracking-wider">
+                {ev.type === 'high' ? 'Maré Cheia' : 'Maré Seca'}
+              </span>
             </div>
           ))}
         </div>
       </div>
 
       {/* Bottom Info: Moon Phase & Sun Times */}
-      <div className="px-4 sm:px-6 py-4 bg-[#020b14]/60 border-t border-white/5">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-center sm:text-left">
+      <div className="px-5 sm:px-8 py-5 bg-[#010811]/90 border-t border-white/5 relative z-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {/* Moon Phase Card */}
-          <div className="bg-white/[0.03] border border-white/5 rounded-xl p-3.5 flex items-center justify-center sm:justify-start gap-3.5">
-            <div className="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0 text-white/80">
-              <Moon className="w-4 h-4 text-[#16C4E8]" />
+          <div className="bg-white/[0.02] border border-white/5 rounded-2xl p-4 flex items-center gap-4 hover:border-white/10 transition-colors">
+            <div className="w-11 h-11 rounded-xl bg-[#16C4E8]/10 border border-[#16C4E8]/20 flex items-center justify-center flex-shrink-0 text-[#16C4E8]">
+              <Moon className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-[10px] font-mono uppercase tracking-wider text-white/50">Fase da Lua</div>
-              <div className="text-sm font-semibold text-white flex items-center gap-2">
+              <div className="text-[10px] font-mono uppercase tracking-widest text-white/50">Fase Lunar</div>
+              <div className="text-base font-semibold text-white flex items-center gap-2 mt-0.5">
                 <span>{data.moon.name}</span>
-                <span className="text-white/40">·</span>
-                <span className="text-xs font-mono text-[#16C4E8]">{data.moon.illumination}% iluminada</span>
+                <span className="text-white/30">·</span>
+                <span className="text-xs font-mono font-bold text-[#16C4E8]">{data.moon.illumination}% iluminada</span>
               </div>
             </div>
           </div>
 
           {/* Sun Times Card */}
-          <div className="bg-white/[0.03] border border-white/5 rounded-xl p-3.5 flex items-center justify-center sm:justify-start gap-3.5">
-            <div className="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0 text-amber-400">
-              <Sun className="w-4 h-4 text-amber-400" />
+          <div className="bg-white/[0.02] border border-white/5 rounded-2xl p-4 flex items-center gap-4 hover:border-white/10 transition-colors">
+            <div className="w-11 h-11 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center flex-shrink-0 text-amber-400">
+              <Sun className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-[10px] font-mono uppercase tracking-wider text-white/50">Horário Solar · Ilhéus</div>
-              <div className="text-sm font-semibold text-white flex items-center gap-3">
-                <span className="flex items-center gap-1 font-mono text-xs">
+              <div className="text-[10px] font-mono uppercase tracking-widest text-white/50">Sol em Ilhéus</div>
+              <div className="text-base font-semibold text-white flex items-center gap-3 mt-0.5">
+                <span className="flex items-center gap-1 font-mono text-xs text-white/90">
                   <ArrowUp className="w-3 h-3 text-amber-400" /> {data.sun.sunrise}
                 </span>
-                <span className="text-white/40">·</span>
-                <span className="flex items-center gap-1 font-mono text-xs">
+                <span className="text-white/30">·</span>
+                <span className="flex items-center gap-1 font-mono text-xs text-white/90">
                   <ArrowDown className="w-3 h-3 text-amber-400" /> {data.sun.sunset}
                 </span>
               </div>
@@ -562,8 +640,9 @@ export function TideChart({
         </div>
 
         {/* Source Footnote */}
-        <div className="mt-4 pt-3 border-t border-white/5 text-center text-[10px] sm:text-[11px] font-mono text-white/40 tracking-wider">
-          {data.source} · Horário de Brasília (UTC-3)
+        <div className="mt-4 pt-3.5 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-2 text-[10px] sm:text-[11px] font-mono text-white/40 tracking-wider">
+          <span>{data.source}</span>
+          <span>Porto de Ilhéus Malhado · Horário de Brasília (UTC-3)</span>
         </div>
       </div>
     </div>
