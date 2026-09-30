@@ -21,10 +21,11 @@ export function Header() {
   }, []);
 
   const navLinks = [
-    { label: 'O QUE É', href: '#o-que-e' },
-    { label: 'COMO FUNCIONA', href: '#como-funciona' },
-    { label: 'PLANOS', href: '#planos' },
-    { label: 'EXPERIÊNCIA', href: '#experiencia' },
+    { label: 'O QUE É', href: '/#o-que-e' },
+    { label: 'COMO FUNCIONA', href: '/#como-funciona' },
+    { label: 'PLANOS', href: '/#planos' },
+    { label: 'EXPERIÊNCIA', href: '/#experiencia' },
+    { label: 'MARÉ', href: '/mare', isLive: true },
   ];
 
   return (
@@ -39,7 +40,7 @@ export function Header() {
       <div className="max-w-[1280px] mx-auto px-6 sm:px-10 lg:px-12 flex items-center justify-between">
         {/* Brand / Official Ocean Club Logo */}
         <a
-          href="#"
+          href="/"
           className="group flex items-center transition-opacity duration-300 hover:opacity-90 flex-shrink-0"
         >
           <Image
@@ -63,8 +64,16 @@ export function Header() {
               <a
                 key={link.label}
                 href={link.href}
-                className="text-[11px] lg:text-xs uppercase tracking-[0.16em] font-medium text-white hover:text-white/80 transition-opacity duration-200"
+                className={cn(
+                  'text-[11px] lg:text-xs uppercase tracking-[0.16em] font-medium transition-all duration-200 flex items-center',
+                  link.isLive
+                    ? 'text-[#16C4E8] hover:text-[#16C4E8]/80'
+                    : 'text-white hover:text-white/80'
+                )}
               >
+                {link.isLive && (
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#16C4E8] animate-pulse inline-block mr-1.5" />
+                )}
                 {link.label}
               </a>
             ))}
@@ -124,8 +133,14 @@ export function Header() {
               key={link.label}
               href={link.href}
               onClick={() => setMobileMenuOpen(false)}
-              className="text-xs uppercase tracking-[0.2em] font-medium text-white/90 hover:text-white py-3.5 transition-colors"
+              className={cn(
+                'text-xs uppercase tracking-[0.2em] font-medium py-3.5 transition-colors flex items-center',
+                link.isLive ? 'text-[#16C4E8]' : 'text-white/90 hover:text-white'
+              )}
             >
+              {link.isLive && (
+                <span className="w-1.5 h-1.5 rounded-full bg-[#16C4E8] animate-pulse inline-block mr-2" />
+              )}
               {link.label}
             </a>
           ))}

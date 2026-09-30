@@ -6,6 +6,7 @@ import { SectionComparison } from '@/components/SectionComparison';
 import { SectionHowItWorks } from '@/components/SectionHowItWorks';
 import { SectionPlans } from '@/components/SectionPlans';
 import { SectionExperience } from '@/components/SectionExperience';
+import { SectionTides } from '@/components/SectionTides';
 import { SectionFAQ } from '@/components/SectionFAQ';
 import { SectionFinalCTA } from '@/components/SectionFinalCTA';
 
@@ -32,6 +33,9 @@ export default function HomePage() {
 
       {/* SEÇÃO 05 — ILHÉUS & PROVA SOCIAL */}
       <SectionExperience />
+
+      {/* SEÇÃO 06 — TÁBUA DE MARÉS (Tempo Real & Ilhéus) */}
+      <SectionTides />
 
       {/* SEÇÃO 07 — DÚVIDAS FREQUENTES */}
       <SectionFAQ />
@@ -64,6 +68,9 @@ export default function HomePage() {
             </a>
             <a href="#experiencia" className="hover:text-white transition-colors">
               Experiência
+            </a>
+            <a href="/mare" className="text-[#16C4E8] hover:text-white transition-colors">
+              Tábua de Marés
             </a>
             <a href="#faq" className="hover:text-white transition-colors">
               Dúvidas

@@ -14,6 +14,8 @@ export type WhatsAppSource =
   | 'faq_direct'
   | 'final_cta'
   | 'final_cta_marina_visit'
+  | 'tides_section'
+  | 'mare_page'
   | 'general';
 
 export interface WhatsAppLinkOptions {
@@ -32,6 +34,8 @@ const CONTEXT_MESSAGES: Record<WhatsAppSource, string> = {
   faq_direct: 'Olá! Tenho algumas dúvidas sobre o contrato de cotas náuticas da Ocean Club.',
   final_cta: 'Olá! Quero garantir minha cota náutica na Ocean Club para esta temporada em Ilhéus.',
   final_cta_marina_visit: 'Olá! Gostaria de agendar uma visita à marina em Ilhéus para conhecer o jet ski e a estrutura.',
+  tides_section: 'Olá! Estava consultando a tábua de marés no site da Ocean Club e quero saber mais sobre as cotas náuticas em Ilhéus.',
+  mare_page: 'Olá! Acompanho a tábua de marés da Ocean Club e gostaria de verificar a disponibilidade das cotas de jet ski em Ilhéus.',
   general: 'Olá! Vim pelo site da Ocean Club e quero conhecer as cotas náuticas.',
 };
 
