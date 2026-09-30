@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { CTAButton } from './CTAButton';
 import { Menu, X } from 'lucide-react';
@@ -8,6 +8,17 @@ import { cn } from '@/lib/utils';
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navLinks = [
     { label: 'O QUE É', href: '#o-que-e' },
@@ -17,7 +28,14 @@ export function Header() {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-[#020b10]/90 py-4 backdrop-blur-md sm:py-5">
+    <header
+      className={cn(
+        'fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out',
+        isScrolled || mobileMenuOpen
+          ? 'bg-[#03182D]/95 backdrop-blur-md border-b border-white/10 py-3.5 sm:py-4 shadow-xl shadow-black/30'
+          : 'bg-gradient-to-b from-black/50 via-black/20 to-transparent border-b border-transparent py-5 sm:py-7'
+      )}
+    >
       <div className="max-w-[1280px] mx-auto px-6 sm:px-10 lg:px-12 flex items-center justify-between">
         {/* Brand / Official Ocean Club Logo */}
         <a
@@ -31,7 +49,10 @@ export function Header() {
             height={90}
             priority
             unoptimized
-            className="h-9 sm:h-11 md:h-12 w-auto object-contain"
+            className={cn(
+              'w-auto object-contain transition-all duration-300',
+              isScrolled ? 'h-8 sm:h-10' : 'h-9 sm:h-11 md:h-12'
+            )}
           />
         </a>
 
@@ -56,6 +77,10 @@ export function Header() {
             isWhatsApp
             whatsAppOptions={{ source: 'header' }}
             icon="arrow"
+            className={cn(
+              'transition-all duration-300',
+              isScrolled ? 'h-[38px] text-[10px]' : 'h-[42px] text-[11px]'
+            )}
           >
             Consultar disponibilidade
           </CTAButton>
