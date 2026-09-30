@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-ocean: #03182D;
+  --ocean: #06264A;
+  --ocean-blue: #075985;
+  --cyan: #00A9D6;
+  --bright-cyan: #16C4E8;
+  --brand-red: #F23343;
+  --white: #FFFFFF;
+  --off-white: #F5F8FA;
+  --black: #02070B;
+}
+
+html {
+  background-color: var(--primary-ocean);
+  color: var(--off-white);
+  font-family: var(--font-inter), sans-serif;
+  overflow-x: clip;
+  scroll-behavior: auto;
+}
+
+body {
+  background-color: var(--primary-ocean);
+  color: var(--off-white);
+  min-height: 100vh;
+  overflow-x: clip;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Lenis Recommended CSS */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* Custom Selection */
+::selection {
+  background: rgba(0, 169, 214, 0.35);
+  color: #ffffff;
+}
+
+/* Luxury Nautical Gradients & Masks */
+.bg-deep-vignette {
+  background: radial-gradient(circle at center, transparent 40%, rgba(2, 7, 11, 0.85) 100%);
+}
+
+.bg-cinematic-overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(3, 24, 45, 0.7) 0%,
+    rgba(3, 24, 45, 0.25) 25%,
+    rgba(2, 7, 11, 0.4) 70%,
+    rgba(3, 24, 45, 0.95) 100%
+  );
+}
+
+.clip-bridge-initial {
+  clip-path: circle(0% at 50% 50%);
+}
+
+/* Reduced Motion Mode */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+section[id] { scroll-margin-top: 90px; }
