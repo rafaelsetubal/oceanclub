@@ -20,20 +20,20 @@ export function SectionFAQ() {
     <section id="faq" aria-labelledby="faq-title" className="border-t border-white/10 bg-[#020b10] py-20 text-white sm:py-24 lg:py-28">
       <div className="mx-auto grid max-w-[1440px] gap-12 px-6 sm:px-10 lg:grid-cols-[.8fr_1.2fr] lg:gap-20 lg:px-[5.4%]">
         <div>
-          <p className="mb-5 flex items-center gap-3 font-mono text-xs uppercase tracking-[.18em] text-white/55"><span>07</span><span className="h-px w-6 bg-white/30" />Dúvidas frequentes</p>
+          <p className="mb-5 flex items-center gap-3 font-mono text-xs uppercase tracking-[.2em] text-white/80 font-bold"><span>07</span><span className="h-px w-6 bg-white/40" />Dúvidas frequentes</p>
           <h2 id="faq-title" className="font-display text-5xl font-bold uppercase leading-[.95] tracking-tight sm:text-6xl">Tudo claro.<br />Antes de navegar.</h2>
-          <p className="mt-6 max-w-[360px] text-base leading-relaxed text-white/65">Entenda a cota, os custos e o uso compartilhado. Uma boa experiência começa com informações claras.</p>
-          <CTAButton variant="pill-outline" isWhatsApp whatsAppOptions={{ source: 'faq_direct' }} icon="arrow" className="mt-8 min-h-12 px-6 text-xs">Consultar disponibilidade</CTAButton>
+          <p className="mt-6 max-w-[360px] text-base sm:text-lg leading-relaxed text-white/85">Entenda a cota, os custos e o uso compartilhado. Uma boa experiência começa com informações claras.</p>
+          <CTAButton variant="pill-outline" isWhatsApp whatsAppOptions={{ source: 'faq_direct' }} icon="arrow" className="mt-8 min-h-12 px-6 text-xs sm:text-sm font-semibold">Consultar disponibilidade</CTAButton>
         </div>
         <div className="border-t border-white/20">
           {faqs.map((faq, idx) => {
             const isOpen = openIdx === idx;
             return (
               <div key={faq.question} className="border-b border-white/20">
-                <h3><button id={`faq-trigger-${idx}`} aria-controls={`faq-answer-${idx}`} aria-expanded={isOpen} onClick={() => setOpenIdx(isOpen ? null : idx)} className="flex min-h-[80px] w-full items-center justify-between gap-6 py-6 text-left text-base font-medium leading-relaxed text-white/90 transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
-                  {faq.question}<ChevronDown aria-hidden="true" className={`h-5 w-5 shrink-0 text-white/60 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+                <h3><button id={`faq-trigger-${idx}`} aria-controls={`faq-answer-${idx}`} aria-expanded={isOpen} onClick={() => setOpenIdx(isOpen ? null : idx)} className="flex min-h-[80px] w-full items-center justify-between gap-6 py-6 text-left text-base sm:text-lg font-semibold leading-relaxed text-white transition-colors hover:text-[#16C4E8] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
+                  {faq.question}<ChevronDown aria-hidden="true" className={`h-5 w-5 shrink-0 text-white/80 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
                 </button></h3>
-                <div id={`faq-answer-${idx}`} role="region" aria-labelledby={`faq-trigger-${idx}`} hidden={!isOpen} className="pb-7 pr-6 text-sm leading-[1.8] text-white/65">{faq.answer}</div>
+                <div id={`faq-answer-${idx}`} role="region" aria-labelledby={`faq-trigger-${idx}`} hidden={!isOpen} className="pb-7 pr-6 text-sm sm:text-base leading-[1.8] text-white/85">{faq.answer}</div>
               </div>
             );
           })}

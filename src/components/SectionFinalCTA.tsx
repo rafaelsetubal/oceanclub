@@ -13,12 +13,12 @@ export function SectionFinalCTA() {
         <div className="absolute inset-0 bg-gradient-to-t from-[#020a10]/45 via-transparent to-[#020a10]/15" />
         <div className="relative mx-auto grid min-h-[340px] max-w-[1440px] grid-cols-1 items-center gap-8 px-6 py-12 sm:min-h-[390px] sm:px-10 md:grid-cols-[1fr_auto] lg:min-h-[430px] lg:px-[5.4%]">
           <div className="max-w-[620px]">
-            <p className="mb-3 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.2em] text-white/75"><span>08</span><span className="h-px w-6 bg-white/50" />Seu próximo capítulo</p>
+            <p className="mb-3 flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] text-white/85 font-bold"><span>08</span><span className="h-px w-6 bg-white/50" />Seu próximo capítulo</p>
             <h2 className="font-display text-[2.15rem] font-bold uppercase leading-[0.91] tracking-tight sm:text-5xl lg:text-[3.8rem]">Mais mar.<br />Na sua vida.</h2>
             <p className="mt-3 font-display text-lg font-bold uppercase leading-tight tracking-wide sm:text-xl">Conheça sua próxima cota náutica.</p>
-            <p className="mt-5 max-w-[420px] text-sm leading-relaxed text-white/80">Compare os modelos e converse com a equipe sobre disponibilidade, custos e regras de uso.</p>
+            <p className="mt-5 max-w-[420px] text-base leading-relaxed text-white/90 font-normal">Compare os modelos e converse com a equipe sobre disponibilidade, custos e regras de uso.</p>
           </div>
-          <CTAButton variant="primary-red" size="lg" isWhatsApp icon="arrow" className="h-[54px] justify-self-start px-8 text-xs tracking-[0.12em] md:justify-self-end">Consultar disponibilidade</CTAButton>
+          <CTAButton variant="primary-red" size="lg" isWhatsApp icon="arrow" className="h-[54px] justify-self-start px-8 text-xs sm:text-sm font-semibold tracking-[0.12em] md:justify-self-end">Consultar disponibilidade</CTAButton>
         </div>
       </div>
     </section>

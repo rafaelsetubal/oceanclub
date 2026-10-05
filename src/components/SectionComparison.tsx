@@ -372,26 +372,26 @@ export function SectionComparison() {
            ======================================================= */}
         <div
           ref={negativeStageRef}
-          className="absolute inset-x-6 sm:inset-x-12 lg:inset-x-16 top-0 bottom-0 flex flex-col justify-center items-start max-w-lg pt-28 sm:pt-32 pb-8 will-change-transform"
+          className="absolute inset-x-6 sm:inset-x-12 lg:inset-x-16 top-0 bottom-0 flex flex-col justify-center items-start max-w-lg pt-16 sm:pt-20 md:pt-24 lg:pt-28 pb-6 will-change-transform"
         >
           {/* Headline */}
           <div ref={negativeHeadlineRef} className="w-full">
-            <span className="block text-[11px] sm:text-xs uppercase tracking-[0.25em] font-mono text-brand-red font-semibold mb-2.5 sm:mb-3">
+            <span className="block text-xs sm:text-sm uppercase tracking-[0.25em] font-mono text-brand-red font-bold mb-2">
               TER UM JET SKI PRÓPRIO
             </span>
-            <h3 className="font-display font-bold text-2xl sm:text-3xl lg:text-[2.6rem] xl:text-[2.85rem] uppercase text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)] flex flex-col gap-1 sm:gap-1.5">
+            <h3 className="font-display font-bold text-2xl sm:text-3xl lg:text-[2.6rem] xl:text-[2.85rem] uppercase text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)] flex flex-col gap-1">
               <span className="block leading-none">TER UM JET SKI</span>
               <span className="block leading-none">É TER O TRABALHO</span>
-              <span className="block leading-none text-white/80">DELE TAMBÉM.</span>
+              <span className="block leading-none text-white/90">DELE TAMBÉM.</span>
             </h3>
           </div>
 
           {/* Valor Principal Inicial: Compra Inicial */}
-          <div ref={costCompraRef} className="mt-5 sm:mt-6 pt-3.5 sm:pt-4 border-t border-white/15 w-full max-w-sm will-change-transform opacity-0">
-            <span className="block font-mono font-bold text-xl sm:text-2xl text-brand-red tracking-tight leading-none">
+          <div ref={costCompraRef} className="mt-4 sm:mt-5 pt-3 sm:pt-4 border-t border-white/20 w-full max-w-sm will-change-transform opacity-0">
+            <span className="block font-mono font-extrabold text-2xl sm:text-3xl text-brand-red tracking-tight leading-none">
               R$ 110 MIL+
             </span>
-            <span className="block text-[10px] sm:text-[11px] uppercase tracking-[0.25em] font-mono text-white/60 mt-1">
+            <span className="block text-xs sm:text-sm uppercase tracking-[0.2em] font-mono text-white/80 font-medium mt-1">
               COMPRA INICIAL
             </span>
           </div>
@@ -401,12 +401,12 @@ export function SectionComparison() {
             {/* 1. Marina */}
             <div
               ref={costMarinaRef}
-              className="flex items-baseline justify-between border-b border-white/[0.08] pb-1.5 will-change-transform opacity-0"
+              className="flex items-baseline justify-between border-b border-white/15 pb-1.5 will-change-transform opacity-0"
             >
-              <span className="font-mono font-bold text-sm sm:text-base text-brand-red tracking-tight">
-                − R$ 6.000 <span className="text-[11px] text-brand-red/80 font-normal">/ ANO</span>
+              <span className="font-mono font-extrabold text-base sm:text-lg text-brand-red tracking-tight">
+                − R$ 6.000 <span className="text-xs text-brand-red/90 font-medium">/ ANO</span>
               </span>
-              <span className="font-mono text-[11px] sm:text-xs uppercase tracking-wider text-white/70">
+              <span className="font-mono text-xs sm:text-sm uppercase tracking-wider text-white font-medium">
                 MARINA
               </span>
             </div>
@@ -414,12 +414,12 @@ export function SectionComparison() {
             {/* 2. Seguro */}
             <div
               ref={costSeguroRef}
-              className="flex items-baseline justify-between border-b border-white/[0.08] pb-1.5 will-change-transform opacity-0"
+              className="flex items-baseline justify-between border-b border-white/15 pb-1.5 will-change-transform opacity-0"
             >
-              <span className="font-mono font-bold text-sm sm:text-base text-brand-red tracking-tight">
-                − R$ 5.000 <span className="text-[11px] text-brand-red/80 font-normal">/ ANO</span>
+              <span className="font-mono font-extrabold text-base sm:text-lg text-brand-red tracking-tight">
+                − R$ 5.000 <span className="text-xs text-brand-red/90 font-medium">/ ANO</span>
               </span>
-              <span className="font-mono text-[11px] sm:text-xs uppercase tracking-wider text-white/70">
+              <span className="font-mono text-xs sm:text-sm uppercase tracking-wider text-white font-medium">
                 SEGURO
               </span>
             </div>
@@ -427,12 +427,12 @@ export function SectionComparison() {
             {/* 3. Manutenção */}
             <div
               ref={costManutencaoRef}
-              className="flex items-baseline justify-between border-b border-white/[0.08] pb-1.5 will-change-transform opacity-0"
+              className="flex items-baseline justify-between border-b border-white/15 pb-1.5 will-change-transform opacity-0"
             >
-              <span className="font-mono font-bold text-sm sm:text-base text-brand-red tracking-tight">
-                − R$ 2.000 <span className="text-[11px] text-brand-red/80 font-normal">/ 50H</span>
+              <span className="font-mono font-extrabold text-base sm:text-lg text-brand-red tracking-tight">
+                − R$ 2.000 <span className="text-xs text-brand-red/90 font-medium">/ 50H</span>
               </span>
-              <span className="font-mono text-[11px] sm:text-xs uppercase tracking-wider text-white/70">
+              <span className="font-mono text-xs sm:text-sm uppercase tracking-wider text-white font-medium">
                 MANUTENÇÃO
               </span>
             </div>
@@ -440,30 +440,30 @@ export function SectionComparison() {
             {/* 4. Depreciação */}
             <div
               ref={costDepreciacaoRef}
-              className="flex items-baseline justify-between border-b border-white/[0.08] pb-1.5 will-change-transform opacity-0"
+              className="flex items-baseline justify-between border-b border-white/15 pb-1.5 will-change-transform opacity-0"
             >
-              <span className="font-mono font-bold text-sm sm:text-base text-brand-red tracking-tight">
+              <span className="font-mono font-extrabold text-base sm:text-lg text-brand-red tracking-tight">
                 − DEPRECIAÇÃO
               </span>
-              <span className="font-mono text-[11px] sm:text-xs uppercase tracking-wider text-white/70">
+              <span className="font-mono text-xs sm:text-sm uppercase tracking-wider text-white font-medium">
                 CONTÍNUA
               </span>
             </div>
           </div>
 
           {/* O Custo Invisível: Trabalho */}
-          <div ref={workRef} className="mt-3.5 pt-3 border-t border-white/10 w-full max-w-sm will-change-transform opacity-0">
-            <span className="block font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-brand-red font-semibold mb-0.5">
+          <div ref={workRef} className="mt-3.5 pt-3 border-t border-white/15 w-full max-w-sm will-change-transform opacity-0">
+            <span className="block font-mono text-xs sm:text-sm uppercase tracking-[0.25em] text-brand-red font-bold mb-1">
               TRABALHO
             </span>
-            <p className="font-mono text-[11px] sm:text-xs text-white/70 tracking-wider">
+            <p className="font-mono text-xs sm:text-sm text-white/90 tracking-wide font-medium">
               MARINA · MANUTENÇÃO · DOCUMENTAÇÃO · GESTÃO
             </p>
           </div>
 
           {/* Fechamento do Estado Negativo */}
-          <div ref={negativeClosingRef} className="mt-2.5 pt-0.5 will-change-transform opacity-0">
-            <p className="font-display font-bold text-xs sm:text-sm uppercase tracking-widest text-white/90">
+          <div ref={negativeClosingRef} className="mt-3 pt-0.5 will-change-transform opacity-0">
+            <p className="font-display font-bold text-sm sm:text-base uppercase tracking-widest text-white">
               MAIS CUSTO. MAIS RESPONSABILIDADE.
             </p>
           </div>
@@ -474,14 +474,14 @@ export function SectionComparison() {
            ======================================================= */}
         <div
           ref={positiveStageRef}
-          className="absolute inset-x-6 sm:inset-x-12 lg:inset-x-16 top-0 bottom-0 flex flex-col justify-center items-start max-w-xl pt-28 sm:pt-32 pb-8 will-change-transform opacity-0"
+          className="absolute inset-x-6 sm:inset-x-12 lg:inset-x-16 top-0 bottom-0 flex flex-col justify-center items-start max-w-xl pt-16 sm:pt-20 md:pt-24 lg:pt-28 pb-6 will-change-transform opacity-0"
         >
           {/* Headline Positiva */}
           <div ref={positiveHeadlineRef} className="w-full">
-            <span className="block text-[11px] sm:text-xs uppercase tracking-[0.25em] font-mono text-brand-bright font-semibold mb-2.5 sm:mb-3">
+            <span className="block text-xs sm:text-sm uppercase tracking-[0.25em] font-mono text-brand-bright font-bold mb-2">
               COM A OCEAN CLUB
             </span>
-            <h3 className="font-display font-bold text-2xl sm:text-3xl lg:text-[2.6rem] xl:text-[2.85rem] uppercase text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)] flex flex-col gap-1 sm:gap-1.5">
+            <h3 className="font-display font-bold text-2xl sm:text-3xl lg:text-[2.6rem] xl:text-[2.85rem] uppercase text-white drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)] flex flex-col gap-1">
               <span className="block leading-none">VOCÊ NÃO PRECISA</span>
               <span className="block leading-none">SER DONO PARA</span>
               <span className="block leading-none text-brand-bright">TER O MAR.</span>
@@ -489,16 +489,16 @@ export function SectionComparison() {
           </div>
 
           {/* 3 Benefícios Principais com Forte Presença e Espaçamento Harmonioso */}
-          <div className="mt-5 sm:mt-6 space-y-3 sm:space-y-3.5 w-full max-w-md">
+          <div className="mt-5 sm:mt-6 space-y-3 sm:space-y-4 w-full max-w-md">
             {/* Benefit 1 */}
             <div
               ref={benefit1Ref}
-              className="border-l-2 border-brand-bright pl-4 py-0.5 will-change-transform opacity-0"
+              className="border-l-2 border-brand-bright pl-4 py-1 will-change-transform opacity-0"
             >
-              <h4 className="font-display font-bold text-sm sm:text-base text-white uppercase tracking-wider leading-snug">
+              <h4 className="font-display font-bold text-base sm:text-lg text-white uppercase tracking-wider leading-snug">
                 1/6 DA COTA
               </h4>
-              <p className="text-xs sm:text-[13px] text-ocean-offwhite/90 font-light font-sans mt-0.5">
+              <p className="text-sm sm:text-base text-white/90 font-normal font-sans mt-0.5">
                 Uma fração do investimento.
               </p>
             </div>
@@ -506,12 +506,12 @@ export function SectionComparison() {
             {/* Benefit 2 */}
             <div
               ref={benefit2Ref}
-              className="border-l-2 border-brand-bright pl-4 py-0.5 will-change-transform opacity-0"
+              className="border-l-2 border-brand-bright pl-4 py-1 will-change-transform opacity-0"
             >
-              <h4 className="font-display font-bold text-sm sm:text-base text-white uppercase tracking-wider leading-snug">
+              <h4 className="font-display font-bold text-base sm:text-lg text-white uppercase tracking-wider leading-snug">
                 GESTÃO INCLUSA
               </h4>
-              <p className="text-xs sm:text-[13px] text-ocean-offwhite/90 font-light font-sans mt-0.5">
+              <p className="text-sm sm:text-base text-white/90 font-normal font-sans mt-0.5">
                 Marina, manutenção e operação.
               </p>
             </div>
@@ -519,12 +519,12 @@ export function SectionComparison() {
             {/* Benefit 3 */}
             <div
               ref={benefit3Ref}
-              className="border-l-2 border-brand-bright pl-4 py-0.5 will-change-transform opacity-0"
+              className="border-l-2 border-brand-bright pl-4 py-1 will-change-transform opacity-0"
             >
-              <h4 className="font-display font-bold text-sm sm:text-base text-white uppercase tracking-wider leading-snug">
+              <h4 className="font-display font-bold text-base sm:text-lg text-white uppercase tracking-wider leading-snug">
                 PRONTO PARA USAR
               </h4>
-              <p className="text-xs sm:text-[13px] text-ocean-offwhite/90 font-light font-sans mt-0.5">
+              <p className="text-sm sm:text-base text-white/90 font-normal font-sans mt-0.5">
                 Você chega e navega.
               </p>
             </div>
@@ -536,10 +536,10 @@ export function SectionComparison() {
             className="mt-6 sm:mt-7 pt-1 flex flex-col sm:flex-row sm:items-center justify-between gap-4 w-full max-w-md will-change-transform opacity-0 pointer-events-auto"
           >
             <div className="flex flex-col">
-              <span className="font-display font-bold text-xs sm:text-sm uppercase tracking-[0.2em] text-white/95 leading-tight">
+              <span className="font-display font-bold text-sm sm:text-base uppercase tracking-[0.2em] text-white leading-tight">
                 MENOS POSSE.
               </span>
-              <span className="font-display font-bold text-xs sm:text-sm uppercase tracking-[0.2em] text-brand-bright leading-tight">
+              <span className="font-display font-bold text-sm sm:text-base uppercase tracking-[0.2em] text-brand-bright leading-tight">
                 MAIS MAR.
               </span>
             </div>
@@ -549,7 +549,7 @@ export function SectionComparison() {
               size="sm"
               href="#planos"
               icon="arrow"
-              className="text-xs px-6 py-3 font-display uppercase tracking-widest font-semibold shadow-2xl shadow-red-950/80 self-start sm:self-auto"
+              className="text-xs sm:text-sm px-6 py-3 font-display uppercase tracking-widest font-semibold shadow-2xl shadow-red-950/80 self-start sm:self-auto"
             >
               Conheça as Cotas
             </CTAButton>

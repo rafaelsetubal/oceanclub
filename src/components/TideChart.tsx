@@ -345,17 +345,17 @@ export function TideChart({
                 y1={y}
                 x2={SVG_WIDTH - PADDING.right}
                 y2={y}
-                stroke="rgba(255,255,255,0.06)"
+                stroke="rgba(255,255,255,0.12)"
                 strokeDasharray="4 6"
                 strokeWidth="1"
               />
               <text
                 x={SVG_WIDTH - PADDING.right + 8}
                 y={y + 3.5}
-                fill="rgba(255,255,255,0.25)"
-                fontSize="10"
+                fill="rgba(255,255,255,0.7)"
+                fontSize="12"
                 fontFamily="monospace"
-                fontWeight="500"
+                fontWeight="600"
               >
                 {val.toFixed(1)}m
               </text>
@@ -395,8 +395,8 @@ export function TideChart({
             y1={PADDING.top + CHART_HEIGHT}
             x2={SVG_WIDTH - PADDING.right}
             y2={PADDING.top + CHART_HEIGHT}
-            stroke="rgba(255,255,255,0.22)"
-            strokeWidth="1.2"
+            stroke="rgba(255,255,255,0.3)"
+            strokeWidth="1.5"
           />
 
           {/* Timeline markers: 00h, 06h, 12h, 18h, 24h */}
@@ -410,15 +410,15 @@ export function TideChart({
                   y1={baseY}
                   x2={x}
                   y2={baseY + 7}
-                  stroke="rgba(255,255,255,0.4)"
-                  strokeWidth="1.5"
+                  stroke="rgba(255,255,255,0.6)"
+                  strokeWidth="2"
                 />
                 <text
                   x={x}
                   y={baseY + 24}
-                  fill="rgba(255,255,255,0.55)"
-                  fontSize="12"
-                  fontWeight="600"
+                  fill="rgba(255,255,255,0.85)"
+                  fontSize="13"
+                  fontWeight="700"
                   fontFamily="monospace"
                   textAnchor="middle"
                 >
@@ -438,27 +438,27 @@ export function TideChart({
                 x2={nowCoords.x}
                 y2={PADDING.top + CHART_HEIGHT}
                 stroke="#F23343"
-                strokeWidth="2"
+                strokeWidth="2.2"
                 strokeDasharray="5 3"
               />
 
               {/* Top Red Badge "AGORA" */}
               <g transform={`translate(${nowCoords.x}, ${PADDING.top - 24})`}>
                 <rect
-                  x="-26"
-                  y="-14"
-                  width="52"
-                  height="18"
-                  rx="4"
+                  x="-28"
+                  y="-15"
+                  width="56"
+                  height="20"
+                  rx="5"
                   fill="#F23343"
-                  className="shadow-lg shadow-red-500/40"
+                  className="shadow-lg shadow-red-500/50"
                 />
                 <text
                   x="0"
-                  y="-1.5"
+                  y="-1"
                   fill="#FFFFFF"
-                  fontSize="10"
-                  fontWeight="800"
+                  fontSize="11"
+                  fontWeight="900"
                   fontFamily="monospace"
                   letterSpacing="0.08em"
                   textAnchor="middle"
@@ -471,7 +471,7 @@ export function TideChart({
               <circle
                 cx={nowCoords.x}
                 cy={nowCoords.y}
-                r="11"
+                r="12"
                 fill="#F23343"
                 opacity="0.3"
                 className="animate-ping"
@@ -479,10 +479,10 @@ export function TideChart({
               <circle
                 cx={nowCoords.x}
                 cy={nowCoords.y}
-                r="5.5"
+                r="6"
                 fill="#F23343"
                 stroke="#FFFFFF"
-                strokeWidth="2"
+                strokeWidth="2.5"
               />
             </g>
           )}
@@ -495,14 +495,14 @@ export function TideChart({
                 y1={PADDING.top}
                 x2={hoveredPoint.x}
                 y2={PADDING.top + CHART_HEIGHT}
-                stroke="rgba(255,255,255,0.5)"
-                strokeWidth="1.2"
+                stroke="rgba(255,255,255,0.6)"
+                strokeWidth="1.5"
                 strokeDasharray="3 3"
               />
               <circle
                 cx={hoveredPoint.x}
                 cy={hoveredPoint.y}
-                r="6"
+                r="7"
                 fill="#16C4E8"
                 stroke="#FFFFFF"
                 strokeWidth="2.5"
@@ -515,21 +515,21 @@ export function TideChart({
                 )}, ${Math.max(PADDING.top + 20, hoveredPoint.y - 30)})`}
               >
                 <rect
-                  x="-54"
-                  y="-20"
-                  width="108"
-                  height="28"
-                  rx="7"
+                  x="-58"
+                  y="-22"
+                  width="116"
+                  height="30"
+                  rx="8"
                   fill="#03182D"
                   stroke="#16C4E8"
-                  strokeWidth="1.5"
+                  strokeWidth="2"
                 />
                 <text
                   x="0"
                   y="-1"
                   fill="#FFFFFF"
-                  fontSize="11"
-                  fontWeight="700"
+                  fontSize="12"
+                  fontWeight="800"
                   fontFamily="monospace"
                   textAnchor="middle"
                 >
@@ -542,7 +542,7 @@ export function TideChart({
       </div>
 
       {/* 4 Tide Events Grid */}
-      <div className="p-5 sm:p-8 bg-black/30 border-t border-white/5 relative z-10">
+      <div className="p-5 sm:p-8 bg-black/30 border-t border-white/10 relative z-10">
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 sm:gap-5">
           {data.events.map((ev, idx) => (
             <div
@@ -551,13 +551,13 @@ export function TideChart({
                 'rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center text-center transition-all duration-300 relative border group',
                 ev.isNext
                   ? 'bg-gradient-to-b from-[#083058] to-[#041a31] border-[#16C4E8] shadow-[0_10px_30px_-5px_rgba(22,196,232,0.3)] ring-1 ring-[#16C4E8]/50 scale-[1.03]'
-                  : 'bg-[#031526]/80 border-white/10 hover:border-white/20 hover:bg-[#051c33]',
-                ev.isPast && !ev.isNext && 'opacity-60'
+                  : 'bg-[#031526]/80 border-white/15 hover:border-white/30 hover:bg-[#051c33]',
+                ev.isPast && !ev.isNext && 'opacity-70'
               )}
             >
               {/* "Próxima" Tag */}
               {ev.isNext && (
-                <div className="absolute -top-3 px-3 py-0.5 rounded-full bg-[#16C4E8] text-[#03182D] text-[9px] font-mono font-black uppercase tracking-widest flex items-center gap-1 shadow-md shadow-[#16C4E8]/30">
+                <div className="absolute -top-3 px-3 py-0.5 rounded-full bg-[#16C4E8] text-[#03182D] text-[10px] font-mono font-black uppercase tracking-widest flex items-center gap-1 shadow-md shadow-[#16C4E8]/30">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#03182D] animate-ping" />
                   Próxima Maré
                 </div>
@@ -568,7 +568,7 @@ export function TideChart({
                 <div
                   className={cn(
                     'w-6 h-6 rounded-full flex items-center justify-center',
-                    ev.type === 'high' ? 'bg-[#16C4E8]/15 text-[#16C4E8]' : 'bg-sky-500/15 text-sky-300'
+                    ev.type === 'high' ? 'bg-[#16C4E8]/20 text-[#16C4E8]' : 'bg-sky-500/20 text-sky-300'
                   )}
                 >
                   {ev.type === 'high' ? (
@@ -577,7 +577,7 @@ export function TideChart({
                     <ArrowDown className="w-3.5 h-3.5" />
                   )}
                 </div>
-                <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.16em] font-bold text-white/80">
+                <span className="text-xs sm:text-sm font-mono uppercase tracking-[0.16em] font-bold text-white">
                   {ev.name}
                 </span>
               </div>
@@ -588,12 +588,12 @@ export function TideChart({
               </div>
 
               {/* Tide Height in Meters: 1,94m */}
-              <div className="text-sm sm:text-base font-mono font-bold text-[#16C4E8] tracking-tight">
+              <div className="text-base sm:text-lg font-mono font-bold text-[#16C4E8] tracking-tight">
                 {ev.level.toFixed(2).replace('.', ',')}m
               </div>
 
               {/* Sub-label */}
-              <span className="text-[10px] font-sans text-white/40 mt-1 uppercase tracking-wider">
+              <span className="text-xs font-sans text-white/80 mt-1 uppercase tracking-wider font-medium">
                 {ev.type === 'high' ? 'Maré Cheia' : 'Maré Seca'}
               </span>
             </div>
@@ -602,37 +602,37 @@ export function TideChart({
       </div>
 
       {/* Bottom Info: Moon Phase & Sun Times */}
-      <div className="px-5 sm:px-8 py-5 bg-[#010811]/90 border-t border-white/5 relative z-10">
+      <div className="px-5 sm:px-8 py-5 bg-[#010811]/90 border-t border-white/10 relative z-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {/* Moon Phase Card */}
-          <div className="bg-white/[0.02] border border-white/5 rounded-2xl p-4 flex items-center gap-4 hover:border-white/10 transition-colors">
-            <div className="w-11 h-11 rounded-xl bg-[#16C4E8]/10 border border-[#16C4E8]/20 flex items-center justify-center flex-shrink-0 text-[#16C4E8]">
-              <Moon className="w-5 h-5" />
+          <div className="bg-white/[0.04] border border-white/10 rounded-2xl p-4 flex items-center gap-4 hover:border-white/20 transition-colors">
+            <div className="w-12 h-12 rounded-xl bg-[#16C4E8]/15 border border-[#16C4E8]/30 flex items-center justify-center flex-shrink-0 text-[#16C4E8]">
+              <Moon className="w-6 h-6" />
             </div>
             <div>
-              <div className="text-[10px] font-mono uppercase tracking-widest text-white/50">Fase Lunar</div>
-              <div className="text-base font-semibold text-white flex items-center gap-2 mt-0.5">
+              <div className="text-xs font-mono uppercase tracking-widest text-white/70 font-semibold">Fase Lunar</div>
+              <div className="text-base sm:text-lg font-semibold text-white flex items-center gap-2 mt-0.5">
                 <span>{data.moon.name}</span>
-                <span className="text-white/30">·</span>
-                <span className="text-xs font-mono font-bold text-[#16C4E8]">{data.moon.illumination}% iluminada</span>
+                <span className="text-white/40">·</span>
+                <span className="text-sm font-mono font-bold text-[#16C4E8]">{data.moon.illumination}% iluminada</span>
               </div>
             </div>
           </div>
 
           {/* Sun Times Card */}
-          <div className="bg-white/[0.02] border border-white/5 rounded-2xl p-4 flex items-center gap-4 hover:border-white/10 transition-colors">
-            <div className="w-11 h-11 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center flex-shrink-0 text-amber-400">
-              <Sun className="w-5 h-5" />
+          <div className="bg-white/[0.04] border border-white/10 rounded-2xl p-4 flex items-center gap-4 hover:border-white/20 transition-colors">
+            <div className="w-12 h-12 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center flex-shrink-0 text-amber-400">
+              <Sun className="w-6 h-6" />
             </div>
             <div>
-              <div className="text-[10px] font-mono uppercase tracking-widest text-white/50">Sol em Ilhéus</div>
-              <div className="text-base font-semibold text-white flex items-center gap-3 mt-0.5">
-                <span className="flex items-center gap-1 font-mono text-xs text-white/90">
-                  <ArrowUp className="w-3 h-3 text-amber-400" /> {data.sun.sunrise}
+              <div className="text-xs font-mono uppercase tracking-widest text-white/70 font-semibold">Sol em Ilhéus</div>
+              <div className="text-base sm:text-lg font-semibold text-white flex items-center gap-3 mt-0.5">
+                <span className="flex items-center gap-1.5 font-mono text-sm text-white">
+                  <ArrowUp className="w-3.5 h-3.5 text-amber-400" /> {data.sun.sunrise}
                 </span>
-                <span className="text-white/30">·</span>
-                <span className="flex items-center gap-1 font-mono text-xs text-white/90">
-                  <ArrowDown className="w-3 h-3 text-amber-400" /> {data.sun.sunset}
+                <span className="text-white/40">·</span>
+                <span className="flex items-center gap-1.5 font-mono text-sm text-white">
+                  <ArrowDown className="w-3.5 h-3.5 text-amber-400" /> {data.sun.sunset}
                 </span>
               </div>
             </div>
@@ -640,7 +640,7 @@ export function TideChart({
         </div>
 
         {/* Source Footnote */}
-        <div className="mt-4 pt-3.5 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-2 text-[10px] sm:text-[11px] font-mono text-white/40 tracking-wider">
+        <div className="mt-4 pt-3.5 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs sm:text-sm font-mono text-white/70 tracking-wider font-medium">
           <span>{data.source}</span>
           <span>Porto de Ilhéus Malhado · Horário de Brasília (UTC-3)</span>
         </div>

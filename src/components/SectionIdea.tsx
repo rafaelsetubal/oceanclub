@@ -63,17 +63,17 @@ export function SectionIdea() {
       <div className="max-w-[1280px] mx-auto px-6 sm:px-10 lg:px-12">
         
         {/* Editorial Chapter Header */}
-        <div className="flex items-center justify-between border-b border-[#071A2B]/15 pb-4 mb-10 sm:mb-14">
+        <div className="flex items-center justify-between border-b border-[#071A2B]/20 pb-4 mb-10 sm:mb-14">
           <div className="flex items-center gap-3">
-            <span className="font-mono text-xs font-semibold text-[#071A2B]/70 tracking-wider">
+            <span className="font-mono text-xs sm:text-sm font-bold text-[#071A2B]/80 tracking-wider">
               01
             </span>
-            <span className="w-6 h-[1px] bg-[#071A2B]/30 inline-block" />
-            <span className="text-[11px] sm:text-xs uppercase tracking-[0.25em] font-medium text-[#071A2B] font-sans">
+            <span className="w-6 h-[1px] bg-[#071A2B]/40 inline-block" />
+            <span className="text-xs sm:text-sm uppercase tracking-[0.25em] font-semibold text-[#071A2B] font-sans">
               A IDEIA
             </span>
           </div>
-          <span className="hidden sm:inline-block text-[10px] uppercase tracking-[0.25em] font-mono text-[#071A2B]/50">
+          <span className="hidden sm:inline-block text-xs uppercase tracking-[0.2em] font-mono text-[#071A2B]/70 font-medium">
             OCEAN CLUB · MODELO NÁUTICO
           </span>
         </div>
@@ -99,28 +99,28 @@ export function SectionIdea() {
 
               {/* Subtitle & Body Text */}
               <div className="mt-5 sm:mt-6 space-y-3 max-w-[500px]">
-                <p className="text-sm sm:text-base font-medium text-[#071A2B] leading-relaxed">
+                <p className="text-base sm:text-lg font-semibold text-[#071A2B] leading-relaxed">
                   Uma nova forma de acessar um jet ski em Ilhéus.
                 </p>
-                <p className="text-xs sm:text-sm text-[#071A2B]/75 font-light leading-[1.7]">
+                <p className="text-sm sm:text-base text-[#071A2B]/85 font-normal leading-[1.7]">
                   Em vez de arcar sozinho com compra, marina, manutenção e seguro, você compartilha a propriedade e os custos — e aproveita o que realmente importa: navegar.
                 </p>
               </div>
             </div>
 
             {/* 3 Value Pillars (Micro-Specs) */}
-            <div className="grid grid-cols-3 gap-4 pt-6 sm:pt-7 mt-6 sm:mt-7 border-t border-[#071A2B]/10 max-w-[500px]">
+            <div className="grid grid-cols-3 gap-4 pt-6 sm:pt-7 mt-6 sm:mt-7 border-t border-[#071A2B]/15 max-w-[500px]">
               <div>
-                <span className="block font-display text-lg sm:text-xl font-bold text-[#071A2B]">1/5</span>
-                <span className="block text-[11px] text-[#071A2B]/70 font-light leading-tight mt-0.5">Cota Fracionada</span>
+                <span className="block font-display text-xl sm:text-2xl font-bold text-[#071A2B]">1/5</span>
+                <span className="block text-xs sm:text-sm text-[#071A2B]/80 font-medium leading-tight mt-1">Cota Fracionada</span>
               </div>
               <div>
-                <span className="block font-display text-lg sm:text-xl font-bold text-[#071A2B]">Gestão</span>
-                <span className="block text-[11px] text-[#071A2B]/70 font-light leading-tight mt-0.5">Gestão e Marina</span>
+                <span className="block font-display text-xl sm:text-2xl font-bold text-[#071A2B]">Gestão</span>
+                <span className="block text-xs sm:text-sm text-[#071A2B]/80 font-medium leading-tight mt-1">Gestão e Marina</span>
               </div>
               <div>
-                <span className="block font-display text-lg sm:text-xl font-bold text-[#071A2B]">Ilhéus</span>
-                <span className="block text-[11px] text-[#071A2B]/70 font-light leading-tight mt-0.5">Pronto na Água</span>
+                <span className="block font-display text-xl sm:text-2xl font-bold text-[#071A2B]">Ilhéus</span>
+                <span className="block text-xs sm:text-sm text-[#071A2B]/80 font-medium leading-tight mt-1">Pronto na Água</span>
               </div>
             </div>
 
@@ -128,10 +128,10 @@ export function SectionIdea() {
             <div className="mt-7 sm:mt-8">
               <a
                 href="#planos"
-                className="group inline-flex items-center gap-2.5 text-xs font-medium uppercase tracking-[0.22em] text-[#071A2B] py-1.5 relative"
+                className="group inline-flex items-center gap-2.5 text-xs sm:text-sm font-semibold uppercase tracking-[0.22em] text-[#071A2B] py-1.5 relative"
               >
                 <span>Ver cotas</span>
-                <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1.5 text-[#071A2B]" />
+                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1.5 text-[#071A2B]" />
                 <span className="absolute bottom-0 left-0 w-12 h-[1.5px] bg-[#071A2B] transition-all duration-300 group-hover:w-full" />
               </a>
             </div>
