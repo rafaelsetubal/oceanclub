@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { Inter, Oswald } from 'next/font/google';
 import './globals.css';
 import { SmoothScroll } from '@/components/SmoothScroll';
+import { FloatingWhatsApp } from '@/components/FloatingWhatsApp';
 
 const oswald = Oswald({
   subsets: ['latin'],
@@ -57,6 +58,7 @@ export default function RootLayout({
     <html lang="pt-BR" className={`${oswald.variable} ${inter.variable} dark`}>
       <body className="bg-ocean-primary text-ocean-offwhite antialiased font-sans selection:bg-brand-cyan/30 selection:text-white">
         <SmoothScroll>{children}</SmoothScroll>
+        <FloatingWhatsApp />
       </body>
     </html>
   );

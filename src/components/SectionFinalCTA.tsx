@@ -18,7 +18,16 @@ export function SectionFinalCTA() {
             <p className="mt-3 font-display text-lg font-bold uppercase leading-tight tracking-wide sm:text-xl">Conheça sua próxima cota náutica.</p>
             <p className="mt-5 max-w-[420px] text-base leading-relaxed text-white/90 font-normal">Compare os modelos e converse com a equipe sobre disponibilidade, custos e regras de uso.</p>
           </div>
-          <CTAButton variant="primary-red" size="lg" isWhatsApp icon="arrow" className="h-[54px] justify-self-start px-8 text-xs sm:text-sm font-semibold tracking-[0.12em] md:justify-self-end">Consultar disponibilidade</CTAButton>
+          <CTAButton
+            variant="primary-red"
+            size="lg"
+            isWhatsApp
+            whatsAppOptions={{ source: 'final_cta' }}
+            icon="arrow"
+            className="h-[54px] justify-self-start px-8 text-xs sm:text-sm font-semibold tracking-[0.12em] md:justify-self-end"
+          >
+            Consultar disponibilidade
+          </CTAButton>
         </div>
       </div>
     </section>

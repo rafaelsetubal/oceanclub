@@ -145,7 +145,7 @@ export function Header() {
             </a>
           ))}
         </div>
-        <div className="pt-2">
+        <div className="pt-2 flex flex-col gap-2.5">
           <CTAButton
             variant="primary-red"
             size="md"
@@ -155,6 +155,17 @@ export function Header() {
             className="w-full justify-center text-xs"
           >
             Ver cotas
+          </CTAButton>
+          <CTAButton
+            variant="header-pill"
+            size="md"
+            isWhatsApp
+            whatsAppOptions={{ source: 'header' }}
+            onClick={() => setMobileMenuOpen(false)}
+            icon="whatsapp"
+            className="w-full justify-center text-xs border-white/30"
+          >
+            Falar no WhatsApp
           </CTAButton>
         </div>
       </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React from 'react';
 import { getWhatsAppUrl, WhatsAppLinkOptions } from '@/lib/whatsapp';
 import { ArrowRight, MessageCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -27,7 +27,6 @@ export function CTAButton({
   className,
   ...props
 }: CTAButtonProps) {
-  const contactDialog = useRef<HTMLDialogElement>(null);
   const baseClasses =
     'relative inline-flex items-center justify-center uppercase font-medium transition-all duration-300 select-none cursor-pointer';
 
@@ -64,17 +63,6 @@ export function CTAButton({
     </span>
   );
 
-  if (isWhatsApp && !whatsAppOptions?.phone) {
-    return <>
-      <button type="button" onClick={() => contactDialog.current?.showModal()} className={cn('group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4', baseClasses, variantClasses[variant], className)}>{content}</button>
-      <dialog ref={contactDialog} aria-label="Atendimento Ocean Club" className="m-auto w-[calc(100%_-_2rem)] max-w-md rounded-xl border border-white/20 bg-[#071A2B] p-8 text-left text-white backdrop:bg-black/70">
-        <h2 className="font-display text-3xl font-bold uppercase">Seu próximo dia no mar</h2>
-        <p className="mt-4 text-base leading-relaxed text-white/75">O canal de atendimento da Ocean Club será disponibilizado em breve. Por enquanto, compare as cotas e conheça a proposta.</p>
-        <p className="mt-4 text-sm leading-relaxed text-white/60">Disponibilidade, regras de reserva e condições de contratação serão confirmadas no atendimento.</p>
-        <form method="dialog" className="mt-6"><button className="min-h-12 rounded border border-white/50 px-6 text-sm" autoFocus>Voltar à página</button></form>
-      </dialog>
-    </>;
-  }
   if (finalHref) {
     const isExternal = finalHref.startsWith('http') || isWhatsApp;
     return (
@@ -109,3 +97,4 @@ export function CTAButton({
     </button>
   );
 }
+

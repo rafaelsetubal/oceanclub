@@ -49,7 +49,19 @@ export function SectionPlans() {
                 <p className="mt-0.5 whitespace-nowrap font-display text-[2.25rem] font-bold leading-none tracking-[-0.045em] text-[#F23343] sm:text-[2.2rem] lg:text-[2.6rem]">R$ {plan.price}</p>
                 <p className="mt-1 text-sm font-semibold text-white sm:text-base">+ R$ {plan.monthly} <span className="text-xs font-normal uppercase tracking-[0.1em] text-white/80">/ mês</span></p>
                 <p className="mt-3 max-w-[28ch] text-xs sm:text-sm leading-relaxed text-white/80">{index === 0 ? 'A menor aquisição e mensalidade entre as opções apresentadas.' : index === 1 ? 'Uma alternativa intermediária em investimento e mensalidade.' : 'Compare esta configuração com a equipe antes de escolher sua cota.'}</p>
-                <CTAButton isWhatsApp variant="link-whatsapp" icon="arrow" className="mt-4 min-h-11 text-xs tracking-normal font-semibold text-white hover:text-white/90">Consultar disponibilidade</CTAButton>
+                <CTAButton
+                  isWhatsApp
+                  whatsAppOptions={{
+                    source: 'section_planos',
+                    model: plan.model,
+                    message: `Olá! Tenho interesse na cota náutica do Sea-Doo ${plan.model} em Ilhéus. Gostaria de consultar a disponibilidade e valores.`,
+                  }}
+                  variant="link-whatsapp"
+                  icon="arrow"
+                  className="mt-4 min-h-11 text-xs tracking-normal font-semibold text-white hover:text-white/90"
+                >
+                  Consultar disponibilidade
+                </CTAButton>
               </div>
             </article>
           ))}
@@ -58,7 +70,7 @@ export function SectionPlans() {
         <div className="relative z-10 mt-14 border-t border-white/20 pt-10 sm:mt-20 sm:pt-12">
           <div className="grid gap-8 lg:grid-cols-[.8fr_1.2fr] lg:gap-16">
             <div>
-              <p className="text-xs uppercase tracking-[.2em] text-white/75 font-bold sm:text-sm">Compare com clareza</p>
+              <p className="text-xs uppercase tracking-[.2em] text-white/75 font-semibold sm:text-sm">Compare com clareza</p>
               <h3 className="mt-4 font-display text-3xl font-bold uppercase leading-tight sm:text-4xl">A cota é sua entrada.<br />A mensalidade cuida da estrutura.</h3>
               <p className="mt-5 max-w-[380px] text-sm sm:text-base leading-relaxed text-white/85">São dois valores diferentes: a aquisição da participação no jet ski e o custo mensal da operação compartilhada.</p>
               <p className="mt-4 max-w-[380px] text-sm sm:text-base leading-relaxed text-white/85">Para escolher o modelo, peça à equipe a ficha da embarcação, o ano, a capacidade e os equipamentos disponíveis.</p>
@@ -68,15 +80,32 @@ export function SectionPlans() {
               <div role="group" aria-label="Escolha um modelo para comparar os custos" className="grid grid-cols-3 border-b border-white/20">
                 {plans.map((plan, index) => <button key={plan.model} type="button" aria-pressed={selectedModel === index} onClick={() => setSelectedModel(index)} className={`min-h-16 px-3 py-4 text-xs sm:text-sm font-semibold leading-relaxed transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-white ${selectedModel === index ? 'bg-white/15 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white'}`}>{plan.model}</button>)}
               </div>
+
               <div className="p-6 sm:p-8" aria-live="polite" aria-atomic="true">
                 <p className="text-xs sm:text-sm uppercase tracking-[.14em] text-white/75 font-semibold">Sea-Doo {selectedPlan.model} · participação de 1/5</p>
                 <dl className="mt-6 grid grid-cols-2 gap-5">
                   <div><dt className="text-xs sm:text-sm text-white/80 font-medium">Aquisição da cota</dt><dd className="mt-2 font-display text-3xl font-bold text-[#F23343] sm:text-4xl">R$ {selectedPlan.price}</dd></div>
                   <div><dt className="text-xs sm:text-sm text-white/80 font-medium">Mensalidade</dt><dd className="mt-2 font-display text-3xl font-bold sm:text-4xl">R$ {selectedPlan.monthly}<span className="ml-1 font-sans text-xs sm:text-sm font-normal text-white/80">/mês</span></dd></div>
                 </dl>
-                <div className="mt-6 border-t border-white/15 pt-5">
-                  <p className="text-sm sm:text-base text-white/90">12 mensalidades: <strong className="font-semibold text-white">R$ {annualMonthlyCost}</strong></p>
-                  <p className="mt-2 text-xs sm:text-sm leading-relaxed text-white/70">Projeção com o valor mensal apresentado, sem aquisição da cota, reajustes ou despesas de uso.</p>
+                <div className="mt-6 border-t border-white/15 pt-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                  <div>
+                    <p className="text-sm sm:text-base text-white/90">12 mensalidades: <strong className="font-semibold text-white">R$ {annualMonthlyCost}</strong></p>
+                    <p className="mt-1 text-xs sm:text-sm leading-relaxed text-white/70">Projeção com o valor mensal apresentado, sem reajustes ou despesas de uso.</p>
+                  </div>
+                  <CTAButton
+                    isWhatsApp
+                    whatsAppOptions={{
+                      source: 'section_planos',
+                      model: selectedPlan.model,
+                      message: `Olá! Tenho interesse na cota náutica do Sea-Doo ${selectedPlan.model} em Ilhéus. Gostaria de consultar as condições e disponibilidade.`,
+                    }}
+                    variant="primary-red"
+                    size="sm"
+                    icon="arrow"
+                    className="self-start sm:self-auto shrink-0 h-[44px] px-5 text-xs font-semibold"
+                  >
+                    Consultar {selectedPlan.model}
+                  </CTAButton>
                 </div>
               </div>
             </div>
